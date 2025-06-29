@@ -4,13 +4,19 @@ from urllib.parse import urljoin
 import pandas as pd
 from time import sleep
 import re
-from selenium import webdriver
+import undetected_chromedriver as uc
 
 # Initialisation du DataFrame
 def scraper_appartements(nb_pages=1):
     options = webdriver.ChromeOptions()
     options.add_argument('--headless')
-    driver = webdriver.Chrome(options=options)
+    options = uc.ChromeOptions()
+    options.add_argument('--headless')
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
+
+    driver = uc.Chrome(options=options)
+
 
     df = []
     
