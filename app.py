@@ -72,7 +72,7 @@ with onglet2:
     try:
         df_appart = pd.read_csv("data/appartements_coinafrique_WSc.csv")
         df_terrains = pd.read_csv("data/terrains_coinafrique_WSc.csv")
-        df_villas = pd.read_csv("data/villas_coinafrique_WSc.csv")
+        df_villas = pd.read_csv("data/Villas_coinafrique_WSc.csv")
 
         load_(df_appart, "Voir les données Appartements", "btn_app", "appartements.csv")
         load_(df_terrains, "Voir les données Terrains", "btn_terr", "terrains.csv")
