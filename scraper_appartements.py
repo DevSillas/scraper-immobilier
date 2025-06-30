@@ -4,23 +4,10 @@ from urllib.parse import urljoin
 import pandas as pd
 from time import sleep
 import re
-import undetected_chromedriver as uc
 
-# Initialisation du DataFrame
+# --- Scraper ---
 def scraper_appartements(nb_pages=1):
-    options = uc.ChromeOptions()
-    options.add_argument('--headless')
-    options.add_argument('--no-sandbox')
-    options.add_argument('--disable-dev-shm-usage')
-
-    driver = uc.Chrome(
-    options=options,
-    driver_executable_path="driver\chromedriver-win64\chromedriver.exe"
-    
-    )
-
     df = []
-    
 
     for page in range(1, nb_pages + 1):
         print(f"Traitement de la page {page}...")
@@ -83,49 +70,23 @@ def scraper_appartements(nb_pages=1):
             sleep(1)
         sleep(2)
 
-    driver.quit()
-    df = pd.DataFrame(df)
-    return df
+    return pd.DataFrame(df)
 
-   
-
-# Fonctions de nettoyage des données
+# --- Nettoyage ---
 def clean_price(price):
-    """Nettoyer et convertir les prix"""
     if pd.isna(price) or str(price).strip().lower() in ['prixsurdemande', 'non spécifié']:
         return None
 
     cleaned = re.sub(r'[^\d.,]', '', str(price))
     try:
         price_num = float(cleaned.replace(',', '.'))
-        if price_num < 100:  # Filtre les prix anormalement bas
+        if price_num < 100:
             return None
         return price_num
     except:
         return None
 
-def clean_surface(text):
-    """Extraire la superficie du texte"""
-    if pd.isna(text):
-        return None
-
-    patterns = [
-        r'(\d+)\s*m[²2]',
-        r'(\d+)\s*ha',
-        r'(\d+)\s*hectares',
-        r'(\d+)\s*metros',
-        r'(\d+)\s*㎡'
-    ]
-
-    for pattern in patterns:
-        match = re.search(pattern, str(text), re.IGNORECASE)
-        if match:
-            return int(match.group(1))
-
-    return None
-
 def clean_address(address):
-    """Nettoyer les adresses"""
     if pd.isna(address):
         return None
 
@@ -135,12 +96,8 @@ def clean_address(address):
     return address.strip()
 
 def clean_data(df):
-    """Fonction principale de nettoyage"""
     df['Prix'] = df['Prix'].apply(clean_price)
-    df['Superficie_m2'] = df['Superficie'].apply(clean_surface)
     df['Adresse'] = df['Adresse'].apply(clean_address)
     df = df.dropna(subset=['Prix', 'Adresse'])
-    df = df.drop_duplicates(subset=['Superficie', 'Prix', 'Adresse', 'Image_URL'])
-    cols = ['Superficie', 'Superficie_m2', 'Prix', 'Adresse', 'Image_URL']
-    return df[cols]
-
+    df = df.drop_duplicates(subset=['Prix', 'Adresse', 'Image_URL'])
+    return df[['Nbre_de_piece', 'Prix', 'Adresse', 'Image_URL']]
