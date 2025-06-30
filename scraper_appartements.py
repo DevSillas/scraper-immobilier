@@ -13,8 +13,11 @@ def scraper_appartements(nb_pages=1):
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
 
-    driver = uc.Chrome(options=options)
-
+    driver = uc.Chrome(
+    options=options,
+    driver_executable_path="driver\chromedriver-win64\chromedriver.exe"
+    
+    )
 
     df = []
     
