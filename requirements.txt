@@ -1,7 +1,4 @@
 streamlit
-undetected-chromedriver==3.5.5
-chromedriver-autoinstaller
-selenium
 beautifulsoup4
+requests
 pandas
-packaging
