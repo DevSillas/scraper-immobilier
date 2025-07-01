@@ -10,6 +10,18 @@ from scraper_villas import scraper_villas
 # Configuration
 st.set_page_config(page_title="Scraper Immobilier", layout="wide")
 st.title("🏡 Application de Web Scraping Immobilier")
+st.markdown("""
+Cette application vous permet d’accéder facilement aux données immobilières issues de CoinAfrique.
+
+### Fonctions principales :
+* 🏗️ **Scraping en direct** : récupérez en temps réel les annonces d’appartements, villas ou terrains.
+* 💾 **Téléchargement de données** : consultez et téléchargez des jeux de données préenregistrés.
+* 📝 **Évaluation de l'application** : donnez votre avis et contribuez à l'amélioration de l’outil.
+
+* **Technologies utilisées :** Python, pandas, streamlit, BeautifulSoup
+* **Source des données :** [CoinAfrique Sénégal](https://sn.coinafrique.com/)
+""")
+
 
 # Créer les trois onglets
 onglet1, onglet2, onglet3 = st.tabs([
