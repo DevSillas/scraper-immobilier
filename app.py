@@ -3,9 +3,9 @@ import pandas as pd
 import os
 import streamlit.components.v1 as components
 
-from scraper_appartements import scraper_appartements
-from scraper_terrains import scraper_terrains
-from scraper_villas import scraper_villas
+from scraper_appartements import scraper_appartements, clean_data
+from scraper_terrains import scraper_terrains, clean_data
+from scraper_villas import scraper_villas, clean_data
 
 # Configuration
 st.set_page_config(page_title="Scraper Immobilier", layout="wide")
