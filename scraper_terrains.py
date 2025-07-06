@@ -11,7 +11,7 @@ def scraper_terrains(nb_pages=1):
 
     for page in range(1, nb_pages + 1):
         print(f"Traitement de la page {page}...")
-        url = f'https://sn.coinafrique.com/categorie/appartements?page={page}'
+        url = f'https://sn.coinafrique.com/categorie/terrains?page={page}'
 
         try:
             response = requests.get(url, headers={'User-Agent': 'Mozilla/5.0'}, timeout=10)
